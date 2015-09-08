@@ -26,18 +26,19 @@ image.src = "https://raw.githubusercontent.com/sanghyun5468/rebaFly/master/reba.
 function start(){
 
   if(!isDragging){
+    viewImage();
+  }
 
+}
+    
+function viewImage(){
     ctx.fillStyle = "rgb(255, 0, 0)";
     calcPo(ctx);
     ctx.beginPath();
     ctx.drawImage(image, x, posY);
     ctx.closePath();
-    ctx.stroke();
-
-  }
-
+    ctx.stroke();  
 }
-    
   
 
 function load() {
@@ -130,7 +131,8 @@ $(document).ready(function (){
   offsetY=canvasOffset.top;
   canvasWidth=canvas.width;
   canvasHeight=canvas.height;
-      
+  // 최초 이미지 그리기 
+  viewImage();      
 
   function handleMouseDown(e){
     canMouseX=parseInt(e.clientX-offsetX);
