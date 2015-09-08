@@ -9,6 +9,8 @@ var yD=0.5;
 var gravity = 0.3;
 var posY = 500;
 var objectCount = 1;
+var image = new Image();
+image.src = "https://raw.githubusercontent.com/sanghyun5468/rebaFly/master/reba.png";
 
 function start(){
 	var canvas = document.getElementById('canvas');
@@ -16,9 +18,6 @@ function start(){
 	  ctx.fillStyle = "rgb(255, 0, 0)";
 	  calcPo(ctx);
 	  ctx.beginPath();
-
-    var image = new Image();
-    image.src = "reba.png";
 
     ctx.drawImage(image, x + 50, posY);
 	  ctx.closePath();
