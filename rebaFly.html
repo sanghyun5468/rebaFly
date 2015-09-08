@@ -19,31 +19,30 @@ var offsetX = null;
 var offsetY = null;
 var canvasWidth = null;
 var canvasHeight = null;
-
-image.src = "https://raw.githubusercontent.com/sanghyun5468/rebaFly/master/reba.png";
+var firstView = true;
 
 
 function start(){
 
   if(!isDragging){
+    console.log(4);
     viewImage();
   }
-
 }
     
 function viewImage(){
-    ctx.fillStyle = "rgb(255, 0, 0)";
-    calcPo(ctx);
-    ctx.beginPath();
-    ctx.drawImage(image, x, posY);
-    ctx.closePath();
-    ctx.stroke();  
+
+  ctx.fillStyle = "rgb(255, 0, 0)";
+  calcPo(ctx);
+  ctx.beginPath();
+  ctx.drawImage(image, x, posY);
+  ctx.closePath();
+  ctx.stroke();  
 }
   
 
 function load() {
     var canvas = document.getElementById("canvas");
-    isDragging = true;
     setInterval('start()',1000/30);
 }
 
@@ -132,9 +131,10 @@ $(document).ready(function (){
   canvasWidth=canvas.width;
   canvasHeight=canvas.height;
   // 최초 이미지 그리기 
-  viewImage();      
+  image.src = "https://raw.githubusercontent.com/sanghyun5468/rebaFly/master/reba.png";  
 
   function handleMouseDown(e){
+    console.log(1);
     canMouseX=parseInt(e.clientX-offsetX);
     canMouseY=parseInt(e.clientY-offsetY);
     x = canMouseX;
@@ -144,6 +144,7 @@ $(document).ready(function (){
   }
 
   function handleMouseUp(e){
+    console.log(2);
     canMouseX=parseInt(e.clientX-offsetX);
     canMouseY=parseInt(e.clientY-offsetY);
     // clear the drag flag
@@ -152,31 +153,22 @@ $(document).ready(function (){
     isDragging=false;
   }
 
-  function handleMouseOut(e){
-    canMouseX=parseInt(e.clientX-offsetX);
-    canMouseY=parseInt(e.clientY-offsetY);
-    // user has left the canvas, so clear the drag flag
-    //isDragging=false;
-
-  }
 
   function handleMouseMove(e){
-    canMouseX=parseInt(e.clientX-offsetX);
-    canMouseY=parseInt(e.clientY-offsetY);
-    // if the drag flag is set, clear the canvas and draw the image
-    if(isDragging){
-        x = canMouseX;
-        posY = canMouseY;
-        ctx.clearRect(0,0,canvasWidth,canvasHeight);
-        ctx.drawImage(image,canMouseX-128/2,canMouseY-120/2,128,120);
-    }
+      canMouseX=parseInt(e.clientX-offsetX);
+      canMouseY=parseInt(e.clientY-offsetY);
+      // if the drag flag is set, clear the canvas and draw the image
+      if(isDragging){
+          x = canMouseX;
+          posY = canMouseY;
+          ctx.clearRect(0,0,canvasWidth,canvasHeight);
+          ctx.drawImage(image,canMouseX-128/2,canMouseY-120/2,128,120);
+      }      
   }
 
   $("#canvas").mousedown(function(e){handleMouseDown(e);});
   $("#canvas").mousemove(function(e){handleMouseMove(e);});
   $("#canvas").mouseup(function(e){handleMouseUp(e);});
-  $("#canvas").mouseout(function(e){handleMouseOut(e);});
-
 
 
 });
